@@ -1,32 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { loadLanguagePack, updateLocale } from '@americanexpress/one-app-ducks';
-import { FormattedMessage, IntlProvider } from 'react-intl';
+import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
 import { fromJS } from 'immutable';
+import { RenderModule, composeModules } from 'holocron';
 
-export const NasaContainer = ({ switchLanguage, languageData, localeName }) => {
-  const locales = ['en-US', 'en-CA', 'es-MX'];
-  // Read about loading async data:
-  // https://github.com/americanexpress/one-app/blob/main/docs/api/modules/Loading-Data.md
-  // quick and dirty solution - implement based on your use case
-  if (languageData.greeting) {
+export const NasaContainer = ({ languageData, localeName }) => {
+  if (languageData) {
     return (
       <IntlProvider locale={localeName} messages={languageData}>
-        <div>
-          <span id="greeting-message">
-            <h1><FormattedMessage id="greeting" /></h1>
-          </span>
-          <div id="locale">
-            <label htmlFor="locale-selector">
-              <p>Choose a locale:</p>
-              <select name="locale" id="locale-selector" onChange={switchLanguage}>
-                {locales.map((locale) => <option key={locale} value={locale}>{locale}</option>
-                )}
-              </select>
-            </label>
-          </div>
-        </div>
+        <RenderModule moduleName="nasa-header" />
+        <RenderModule moduleName="nasa-footer" />
       </IntlProvider>
     );
   }
@@ -34,10 +19,7 @@ export const NasaContainer = ({ switchLanguage, languageData, localeName }) => {
 };
 
 NasaContainer.propTypes = {
-  switchLanguage: PropTypes.func.isRequired,
-  languageData: PropTypes.shape({
-    greeting: PropTypes.string.isRequired,
-  }).isRequired,
+  languageData: PropTypes.shape({}).isRequired,
   localeName: PropTypes.string.isRequired,
 };
 
@@ -61,7 +43,13 @@ export const mapStateToProps = (state) => {
   };
 };
 
-export const loadModuleData = ({ store: { dispatch } }) => dispatch(loadLanguagePack('nasa-container', { fallbackLocale: 'en-US' }));
+export const loadModuleData = async ({ store: { dispatch } }) => {
+  await dispatch(loadLanguagePack('nasa-container', { fallbackLocale: 'en-US' }));
+  await dispatch(composeModules([
+    { name: 'nasa-header' },
+    { name: 'nasa-footer' },
+  ]));
+};
 
 NasaContainer.holocron = {
   name: 'nasa-container',
