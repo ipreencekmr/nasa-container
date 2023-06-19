@@ -20,11 +20,11 @@
     },
     "runner": {
       "dockerImage": "oneamex/one-app-dev:latest",
-      "moduleMapUrl":"https://module-map.vercel.app/module-map.json",
+      "moduleMapUrl": "https://module-map.vercel.app/module-map.json",
       "modules": [
         "."
       ],
-       "rootModuleName": "nasa-root",
+      "rootModuleName": "nasa-root",
       "parrotMiddleware": "./dev.middleware.js"
     },
     "bundler": {
