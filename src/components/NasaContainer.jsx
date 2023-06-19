@@ -6,11 +6,12 @@ import { connect } from 'react-redux';
 import { fromJS } from 'immutable';
 import { RenderModule, composeModules } from 'holocron';
 
-export const NasaContainer = ({ languageData, localeName }) => {
+export const NasaContainer = ({ languageData, localeName, children }) => {
   if (languageData) {
     return (
       <IntlProvider locale={localeName} messages={languageData}>
         <RenderModule moduleName="nasa-header" />
+        {children}
         <RenderModule moduleName="nasa-footer" />
       </IntlProvider>
     );
@@ -19,6 +20,7 @@ export const NasaContainer = ({ languageData, localeName }) => {
 };
 
 NasaContainer.propTypes = {
+  children: PropTypes.node.isRequired,
   languageData: PropTypes.shape({}).isRequired,
   localeName: PropTypes.string.isRequired,
 };
