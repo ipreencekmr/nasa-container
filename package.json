@@ -16,16 +16,23 @@
   },
   "one-amex": {
     "app": {
-      "compatibility": "^6.4.2"
+      "compatibility": "^5.0.0"
     },
     "runner": {
-      "dockerImage": "oneamex/one-app-dev:latest",
+      "dockerImage": "oneamex/one-app-dev:5",
       "moduleMapUrl": "https://module-map.vercel.app/module-map.json",
       "modules": [
         "."
       ],
       "rootModuleName": "nasa-root",
-      "parrotMiddleware": "./dev.middleware.js"
+      "parrotMiddleware": "./dev.middleware.js",
+      "envVars": {
+        "ONE_CONFIG_ENV": "development",
+        "NODE_ENV": "development",
+        "HOLOCRON_MODULE_MAP_URL": "https://cdn.jsdelivr.net/gh/ipreencekmr/CDN@main/nasa/static/module-map.json",
+        "ONE_CLIENT_LOCALE_FILENAME": "integration",
+        "ONE_CLIENT_CDN_URL": "https://cdn.jsdelivr.net/gh/ipreencekmr/CDN@main/nasa/"
+      }
     },
     "bundler": {
       "requiredExternals": [
@@ -61,7 +68,9 @@
     "glob": "^7.1.6",
     "@babel/polyfill": "^7.12.1",
     "jest-json-schema": "^2.1.0",
-    "parrot-middleware": "^4.1.1"
+    "parrot-middleware": "^4.1.1",
+    "node-fetch": "^2.6.11",
+    "fs-extra": "^11.1.1"
   },
   "jest": {
     "preset": "amex-jest-preset-react",

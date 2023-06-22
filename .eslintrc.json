@@ -1,3 +1,13 @@
 {
-  "extends": "amex"
+  "extends": "amex",
+  "rules":{
+    "import/no-extraneous-dependencies": 
+    ["error", {
+        "devDependencies": false, 
+        "optionalDependencies": false, 
+        "peerDependencies": false, 
+        "packageDir": "./"
+    }],
+    "eslint-comments/disable-enable-pair": ["error", {"allowWholeFile": true}]
+  }
 }

@@ -3,6 +3,7 @@
 
 # node/npm
 node_modules
+statics
 *.log
 
 # build
@@ -28,3 +29,4 @@ __diff_output__
 *.tmp
 *.bak
 *.cya
+.vercel
