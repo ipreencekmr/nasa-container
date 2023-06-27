@@ -9,6 +9,7 @@
     "build": "bundle-module",
     "watch:build": "npm run build -- --watch",
     "clean": "rimraf build",
+    "clean:install": "rm -rf node_modules package-lock.json && npm cache clean -f && npm install -f",
     "prepare": "npm run build",
     "test:lint": "eslint --ignore-path .gitignore --ext js,jsx,snap .",
     "test:unit": "jest",
@@ -35,6 +36,7 @@
       }
     },
     "bundler": {
+      "webpackConfigPath": "webpack.config.js",
       "requiredExternals": [
         "react-intl"
       ]
@@ -49,7 +51,11 @@
     "prop-types": "^15.7.2",
     "react-intl": "^5.10.6",
     "react-redux": "^7.2.2",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.13.5"
   },
   "devDependencies": {
     "@americanexpress/one-app-bundler": "^6.10.0",
