@@ -5,13 +5,19 @@ import { IntlProvider } from 'react-intl';
 import { connect } from 'react-redux';
 import { fromJS } from 'immutable';
 import { RenderModule, composeModules } from 'holocron';
-
+import { Container } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
 export const NasaContainer = ({ languageData, localeName, children }) => {
   if (languageData) {
     return (
       <IntlProvider locale={localeName} messages={languageData}>
+        <CssBaseline />
         <RenderModule moduleName="nasa-header" />
-        {children}
+        <Container sx={{
+            p: 2,
+          }}>
+         {children}
+        </Container>
         <RenderModule moduleName="nasa-footer" />
       </IntlProvider>
     );
